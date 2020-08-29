@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ieng.huaimi.database.mapper.UserDao">
+
+    <resultMap id="BaseResultMap" type="User">
+        <id column="id" property="id"/>
+        <result column="username" property="username"/>
+        <result column="email" property="email"/>
+        <result column="phone" property="phone"/>
+        <result column="password" property="password"/>
+        <result column="salt" property="salt"/>
+        <result column="lock_state" property="lockState"/>
+        <result column="create_time" property="createTime"/>
+        <result column="created_by" property="createdBy"/>
+        <result column="modify_time" property="modifyTime"/>
+        <result column="modified_by" property="modifiedBy"/>
+        <result column="deleted" property="deleted"/>
+    </resultMap>
+
+    <select id="queryUserByCondition" parameterType="User" resultType="User">
+        SELECT tu.id, tu.username, tu.email, tu.phone, tu.lock_state, tu.create_time, tu.created_by, tu.modify_time, tu.modified_by, tu.deleted
+        FROM tb_user tu
+        WHERE tu.deleted = '0'
+        <if test="username != null and username != ''">
+            AND tu.username like concat('%', #{username}, '%')
+        </if>
+        <if test="phone != null and phone != ''">
+            AND tu.phone like concat('%', #{phone}, '%')
+        </if>
+        <if test="lockState != null and lockState.value != null">
+            AND tu.lock_state = #{lockState.value}
+        </if>
+        <if test="createTime != null">
+            AND DATE_FORMAT(tu.create_time, '%y%m%d') &gt;= DATE_FORMAT(#{createTime}, '%y%m%d')
+        </if>
+        <if test="modifyTime != null">
+            AND DATE_FORMAT(tu.modify_time, '%y%m%d') &lt;= DATE_FORMAT(#{modifyTime}, '%y%m%d')
+        </if>
+    </select>
+
+
+</mapper>
