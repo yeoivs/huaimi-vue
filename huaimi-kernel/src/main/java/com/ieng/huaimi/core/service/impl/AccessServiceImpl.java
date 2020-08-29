@@ -2,7 +2,7 @@ package com.ieng.huaimi.core.service.impl;
 
 import com.ieng.huaimi.common.utils.context.ServletContextHolder;
 import com.ieng.huaimi.common.utils.StringUtil;
-import com.ieng.huaimi.core.bean.UserPrincipal;
+import com.ieng.huaimi.core.bean.UserAccredit;
 import com.ieng.huaimi.core.service.AccessService;
 import com.ieng.huaimi.core.service.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,9 +24,9 @@ public class AccessServiceImpl implements AccessService {
     public boolean hasPermission(Authentication authentication) {
         HttpServletRequest request = ServletContextHolder.getRequest();
         Object o = authentication.getPrincipal();
-        if (request != null && o instanceof UserPrincipal) {
-            UserPrincipal userPrincipal = (UserPrincipal) o;
-            Collection<? extends GrantedAuthority> authorities = userPrincipal.getAuthorities();
+        if (request != null && o instanceof UserAccredit) {
+            UserAccredit userAccredit = (UserAccredit) o;
+            Collection<? extends GrantedAuthority> authorities = userAccredit.getAuthorities();
             return authorities.contains(new SimpleGrantedAuthority(request.getRequestURI()));
         }
         return false;
@@ -46,7 +46,7 @@ public class AccessServiceImpl implements AccessService {
 
     @Override
     public boolean hasPermission(String name) {
-        UserPrincipal principal = tokenService.getPrincipal(ServletContextHolder.getRequest());
+        UserAccredit principal = tokenService.getPrincipal(ServletContextHolder.getRequest());
         if(principal != null && !StringUtil.isSetNull(principal.getPermissions())){
             return principal.getPermissions().contains(name);
         }
@@ -80,7 +80,7 @@ public class AccessServiceImpl implements AccessService {
 
     @Override
     public boolean hasRole(String name) {
-        UserPrincipal principal = tokenService.getPrincipal(ServletContextHolder.getRequest());
+        UserAccredit principal = tokenService.getPrincipal(ServletContextHolder.getRequest());
         if (principal != null && !StringUtil.isSetNull(principal.getRoles())) {
             return principal.getRoles().contains(name);
         }

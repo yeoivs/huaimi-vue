@@ -1,6 +1,6 @@
 package com.ieng.huaimi.core.security.filter;
 
-import com.ieng.huaimi.core.bean.UserPrincipal;
+import com.ieng.huaimi.core.bean.UserAccredit;
 import com.ieng.huaimi.core.service.TokenService;
 import com.ieng.huaimi.core.service.impl.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,11 +26,11 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        UserPrincipal userPrincipal = tokenService.getPrincipal(request);
+        UserAccredit userAccredit = tokenService.getPrincipal(request);
 
-        if(userPrincipal != null){
-            refreshExpireTime(userPrincipal);
-            UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userPrincipal, null, userPrincipal.getAuthorities());
+        if(userAccredit != null){
+            refreshExpireTime(userAccredit);
+            UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userAccredit, null, userAccredit.getAuthorities());
             authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
             SecurityContextHolder.getContext().setAuthentication(authenticationToken);
         }
@@ -40,16 +40,16 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 
     /**
      * 刷新缓存Token过期时间
-     * @param userPrincipal 用户
+     * @param userAccredit 用户
      */
-    private void refreshExpireTime(UserPrincipal userPrincipal){
-        long expireTime = userPrincipal.getExpireTime();
+    private void refreshExpireTime(UserAccredit userAccredit){
+        long expireTime = userAccredit.getExpireTime();
         long currentTime = System.currentTimeMillis();
         if(expireTime - currentTime <= MINUTES_10){
-            String uuid = userPrincipal.getToken();
-            userPrincipal = (UserPrincipal) userDetailsService.loadUserByUsername(userPrincipal.getUsername());
-            userPrincipal.setToken(uuid);
-            tokenService.refreshToken(userPrincipal);
+            String uuid = userAccredit.getToken();
+            userAccredit = (UserAccredit) userDetailsService.loadUserByUsername(userAccredit.getUsername());
+            userAccredit.setToken(uuid);
+            tokenService.refreshToken(userAccredit);
         }
     }
 

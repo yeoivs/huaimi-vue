@@ -1,18 +1,18 @@
 package com.ieng.huaimi.core.service;
 
-import com.ieng.huaimi.core.bean.UserPrincipal;
+import com.ieng.huaimi.core.bean.UserAccredit;
 
 import javax.servlet.http.HttpServletRequest;
 
 
 public interface TokenService {
 
-    String createToken(UserPrincipal userPrincipal);
+    String createToken(UserAccredit userAccredit);
 
-    UserPrincipal getPrincipal(HttpServletRequest request);
+    UserAccredit getPrincipal(HttpServletRequest request);
 
     void delToken(String uuid);
 
-    void refreshToken(UserPrincipal userPrincipal);
+    void refreshToken(UserAccredit userAccredit);
 
 }

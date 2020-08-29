@@ -5,7 +5,7 @@ import com.ieng.huaimi.common.constant.KeyConstant;
 import com.ieng.huaimi.common.constant.SessionConstant;
 import com.ieng.huaimi.common.utils.IDUtil;
 import com.ieng.huaimi.core.cache.RedisCache;
-import com.ieng.huaimi.core.bean.UserPrincipal;
+import com.ieng.huaimi.core.bean.UserAccredit;
 import com.ieng.huaimi.core.service.TokenService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -46,12 +46,12 @@ public class TokenServiceImpl implements TokenService {
 
 
     @Override
-    public String createToken(UserPrincipal userPrincipal) {
+    public String createToken(UserAccredit userAccredit) {
         String uuid = IDUtil.uuid();
 
-        userPrincipal.setToken(uuid);
+        userAccredit.setToken(uuid);
 
-        refreshToken(userPrincipal);
+        refreshToken(userAccredit);
 
         Map<String, Object> map = new HashMap<>(1);
         map.put(KeyConstant.USER_KEY, uuid);
@@ -60,7 +60,7 @@ public class TokenServiceImpl implements TokenService {
     }
 
     @Override
-    public UserPrincipal getPrincipal(HttpServletRequest request) {
+    public UserAccredit getPrincipal(HttpServletRequest request) {
         String token = getToken(request);
         if(StringUtils.isNotEmpty(token)){
             Claims claims = parserJWT(token);
@@ -81,10 +81,10 @@ public class TokenServiceImpl implements TokenService {
     }
 
     @Override
-    public void refreshToken(UserPrincipal userPrincipal) {
-        userPrincipal.setAccessTime(System.currentTimeMillis());
-        userPrincipal.setExpireTime(userPrincipal.getAccessTime() + this.expiration.toMillis() * 1000);
-        redisCache.setObject(SessionConstant.USER_KEY_PREFIX + userPrincipal.getToken(), userPrincipal, this.expiration.toMinutes() * 60);
+    public void refreshToken(UserAccredit userAccredit) {
+        userAccredit.setAccessTime(System.currentTimeMillis());
+        userAccredit.setExpireTime(userAccredit.getAccessTime() + this.expiration.toMillis() * 1000);
+        redisCache.setObject(SessionConstant.USER_KEY_PREFIX + userAccredit.getToken(), userAccredit, this.expiration.toMinutes() * 60);
     }
 
     private String getToken(HttpServletRequest request) {

@@ -1,7 +1,7 @@
 package com.ieng.huaimi.web.controller.system;
 
 import com.ieng.huaimi.common.domain.ResultBody;
-import com.ieng.huaimi.core.bean.UserPrincipal;
+import com.ieng.huaimi.core.bean.UserAccredit;
 import com.ieng.huaimi.core.security.SecurityHolder;
 import com.ieng.huaimi.database.entity.Permission;
 import com.ieng.huaimi.database.service.PermissionService;
@@ -22,8 +22,8 @@ public class PermissionController {
 
     @GetMapping("/menu")
     public ResultBody menuList() {
-        UserPrincipal userPrincipal = SecurityHolder.getUserPrincipal();
-        return ResultBody.succeed(permissionService.findMenu(userPrincipal.getRoles()));
+        UserAccredit userAccredit = SecurityHolder.getUserPrincipal();
+        return ResultBody.succeed(permissionService.findMenu(userAccredit.getRoles()));
     }
 
     @PreAuthorize("hasAuthority('system:permission:list')")

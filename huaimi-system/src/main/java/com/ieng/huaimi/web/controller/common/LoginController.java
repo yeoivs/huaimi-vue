@@ -2,7 +2,7 @@ package com.ieng.huaimi.web.controller.common;
 
 import com.ieng.huaimi.common.domain.LoginBody;
 import com.ieng.huaimi.common.domain.ResultBody;
-import com.ieng.huaimi.core.bean.UserPrincipal;
+import com.ieng.huaimi.core.bean.UserAccredit;
 import com.ieng.huaimi.core.service.TokenService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,11 +31,9 @@ public class LoginController {
             Authentication authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(loginBody.getUsername(), loginBody.getPassword()));
 
-            UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
+            UserAccredit userAccredit = (UserAccredit) authentication.getPrincipal();
 
-            String token = tokenService.createToken(userPrincipal);
-
-            return ResultBody.succeed(token);
+            return ResultBody.succeed(tokenService.createToken(userAccredit));
         } catch (BadCredentialsException e) {
             LOGGER.error(e.getMessage(), e);
             return ResultBody.failed("用户名或密码错误");

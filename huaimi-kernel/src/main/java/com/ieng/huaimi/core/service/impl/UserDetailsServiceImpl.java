@@ -8,7 +8,7 @@ import com.ieng.huaimi.database.entity.User;
 import com.ieng.huaimi.database.service.PermissionService;
 import com.ieng.huaimi.database.service.RoleService;
 import com.ieng.huaimi.database.service.UserService;
-import com.ieng.huaimi.core.bean.UserPrincipal;
+import com.ieng.huaimi.core.bean.UserAccredit;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -40,9 +40,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         return authPrincipal(user);
     }
 
-    private UserPrincipal authPrincipal(User user) {
-        UserPrincipal userPrincipal = new UserPrincipal();
-        userPrincipal.setUser(user);
+    private UserAccredit authPrincipal(User user) {
+        UserAccredit userAccredit = new UserAccredit();
+        userAccredit.setUser(user);
 
         Set<String> roles = roleService.findRoleByUsername(user.getUsername());
 
@@ -64,10 +64,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             permissions.addAll(permissionService.findPermissionsByRole(RoleType.USER.getName()));
         }
 
-        userPrincipal.setRoles(roles);
-        userPrincipal.setPermissions(permissions);
+        userAccredit.setRoles(roles);
+        userAccredit.setPermissions(permissions);
 
-        return userPrincipal;
+        return userAccredit;
     }
 
 }

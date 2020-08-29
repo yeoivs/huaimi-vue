@@ -4,7 +4,7 @@ import com.ieng.huaimi.common.domain.ResultBody;
 import com.ieng.huaimi.common.enums.ServiceStatus;
 import com.ieng.huaimi.common.utils.context.ServletContextHolder;
 import com.ieng.huaimi.common.utils.StringUtil;
-import com.ieng.huaimi.core.bean.UserPrincipal;
+import com.ieng.huaimi.core.bean.UserAccredit;
 import com.ieng.huaimi.core.service.TokenService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -49,9 +49,9 @@ public class SecurityHelper {
     @Bean
     public LogoutSuccessHandler logoutSuccessHandler() {
         return (request, response, authentication) -> {
-            UserPrincipal userPrincipal = tokenService.getPrincipal(request);
-            if(!StringUtil.isNull(userPrincipal)){
-                tokenService.delToken(userPrincipal.getToken());
+            UserAccredit userAccredit = tokenService.getPrincipal(request);
+            if(!StringUtil.isNull(userAccredit)){
+                tokenService.delToken(userAccredit.getToken());
             }
             ServletContextHolder.sendJSON(response,
                     ResultBody.effect(ServiceStatus.SUCCEED, "退出成功", null));

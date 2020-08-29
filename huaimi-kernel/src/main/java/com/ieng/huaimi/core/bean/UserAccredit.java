@@ -12,7 +12,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Data
-public class UserPrincipal implements UserDetails {
+public class UserAccredit implements UserDetails {
     private static final long serialVersionUID = 1L;
     private String token;
     private long accessTime;
