@@ -1,14 +1,16 @@
-# Compiled class file
+# Compiled class file/directory
 *.class
+**/target
 
 # Log file
 *.log
 
-# BlueJ files
-*.ctxt
+# idea file/directory
+**/.idea/
+*.iml
 
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
+# Vue file/directory
+**/node_modules
 
 # Package Files #
 *.jar
