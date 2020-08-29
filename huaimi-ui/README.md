@@ -1,4 +1,4 @@
-# huaimi-vue
+# huaimi-ui
 
 ## Project setup
 ```
