@@ -1,0 +1,23 @@
+server:
+  tomcat:
+    uri-encoding: UTF-8
+    max-threads: 200
+    max-connections: 10000
+    min-spare-threads: 20
+    connection-timeout: 20000
+spring:
+  application:
+    name: HUAIMI
+  jackson:
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:mm:ss
+mybatis:
+  type-aliases-package: com.ieng.huaimi.database.domain
+  mapper-locations: classpath*:mapper/*Mapper.xml
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+jwt:
+  secret: cx3h_o2j.ex_05efw32xv
+  expiration: 2h
+
