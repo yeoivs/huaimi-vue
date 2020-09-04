@@ -1,7 +1,7 @@
 package com.ieng.huaimi.core.service.impl;
 
-import com.ieng.huaimi.common.utils.context.ServletContextHolder;
-import com.ieng.huaimi.common.utils.StringUtil;
+import com.ieng.huaimi.common.utils.context.HttpContextUtils;
+import com.ieng.huaimi.common.utils.string.StringUtil;
 import com.ieng.huaimi.core.bean.UserAccredit;
 import com.ieng.huaimi.core.service.AccessService;
 import com.ieng.huaimi.core.service.TokenService;
@@ -14,15 +14,15 @@ import org.springframework.stereotype.Service;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Collection;
 
-@Service("ACCEPT")
+@Service("AC")
 public class AccessServiceImpl implements AccessService {
     private static final String SPLIT_POINT = ",";
     @Autowired
     private TokenService tokenService;
 
     @Override
-    public boolean hasPermission(Authentication authentication) {
-        HttpServletRequest request = ServletContextHolder.getRequest();
+    public boolean hasURI(Authentication authentication) {
+        HttpServletRequest request = HttpContextUtils.getRequest();
         Object o = authentication.getPrincipal();
         if (request != null && o instanceof UserAccredit) {
             UserAccredit userAccredit = (UserAccredit) o;
@@ -36,7 +36,7 @@ public class AccessServiceImpl implements AccessService {
     public boolean hasAnyPermission(String... name) {
         if(name != null){
             for (String s : name) {
-                if (hasPermission(s)) {
+                if (permission(s)) {
                     return true;
                 }
             }
@@ -45,8 +45,8 @@ public class AccessServiceImpl implements AccessService {
     }
 
     @Override
-    public boolean hasPermission(String name) {
-        UserAccredit principal = tokenService.getPrincipal(ServletContextHolder.getRequest());
+    public boolean permission(String name) {
+        UserAccredit principal = tokenService.getPrincipal(HttpContextUtils.getRequest());
         if(principal != null && !StringUtil.isSetNull(principal.getPermissions())){
             return principal.getPermissions().contains(name);
         }
@@ -80,7 +80,7 @@ public class AccessServiceImpl implements AccessService {
 
     @Override
     public boolean hasRole(String name) {
-        UserAccredit principal = tokenService.getPrincipal(ServletContextHolder.getRequest());
+        UserAccredit principal = tokenService.getPrincipal(HttpContextUtils.getRequest());
         if (principal != null && !StringUtil.isSetNull(principal.getRoles())) {
             return principal.getRoles().contains(name);
         }

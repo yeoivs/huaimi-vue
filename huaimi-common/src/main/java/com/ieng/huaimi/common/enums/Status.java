@@ -1,15 +1,13 @@
 package com.ieng.huaimi.common.enums;
 
-public enum ServiceStatus {
-    SUCCEED(200, "success"),
-    UNAUTHORIZED(401, "Unauthorized"),
-    FORBIDDEN(403, "Forbidden"),
-    FAILED(-1, "be defeated");
+public enum Status {
+    SUCCEED(0, "success"),
+    FAILED(-1, "error");
 
     private final int code;
     private final String msg;
 
-    ServiceStatus(int code, String msg) {
+    Status(int code, String msg) {
         this.code = code;
         this.msg = msg;
     }
@@ -18,7 +16,7 @@ public enum ServiceStatus {
         return code;
     }
 
-    public String getMsg() {
+    public String message() {
         return msg;
     }
 

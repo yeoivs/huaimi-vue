@@ -2,9 +2,10 @@ package com.ieng.huaimi.core.service.impl;
 
 import com.ieng.huaimi.common.enums.AccountStatus;
 import com.ieng.huaimi.common.enums.RoleType;
-import com.ieng.huaimi.common.exception.AccountException;
-import com.ieng.huaimi.common.utils.StringUtil;
-import com.ieng.huaimi.database.entity.User;
+import com.ieng.huaimi.common.exception.ServiceException;
+import com.ieng.huaimi.common.exception.field.ServiceCode;
+import com.ieng.huaimi.common.utils.string.StringUtil;
+import com.ieng.huaimi.database.domain.User;
 import com.ieng.huaimi.database.service.PermissionService;
 import com.ieng.huaimi.database.service.RoleService;
 import com.ieng.huaimi.database.service.UserService;
@@ -31,11 +32,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userService.findUserByUsername(username);
         if (user == null) {
-            throw new UsernameNotFoundException("账号不存在");
+            throw new ServiceException(ServiceCode.USER_ACCOUNT_NOT_FOUND);
         } else if (StringUtil.isMatch(AccountStatus.DELETE.getCode(), user.getLockState())) {
-            throw new AccountException("账号已被删除");
+            throw new ServiceException(ServiceCode.ACCOUNT_DEL);
         } else if (StringUtil.isMatch(AccountStatus.DISABLE.getCode(), user.getLockState())) {
-            throw new AccountException("账号已被禁用");
+            throw new ServiceException(ServiceCode.CURRENT_ACCOUNT_FORBID);
         }
         return authPrincipal(user);
     }

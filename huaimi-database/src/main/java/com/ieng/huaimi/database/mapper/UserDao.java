@@ -1,6 +1,6 @@
 package com.ieng.huaimi.database.mapper;
 
-import com.ieng.huaimi.database.entity.User;
+import com.ieng.huaimi.database.domain.User;
 import tk.mybatis.mapper.common.Mapper;
 
 import java.util.List;

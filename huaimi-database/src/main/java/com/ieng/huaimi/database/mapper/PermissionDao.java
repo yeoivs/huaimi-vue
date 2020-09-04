@@ -1,6 +1,6 @@
 package com.ieng.huaimi.database.mapper;
 
-import com.ieng.huaimi.database.entity.Permission;
+import com.ieng.huaimi.database.domain.Permission;
 import tk.mybatis.mapper.common.Mapper;
 
 import java.util.List;
@@ -14,4 +14,7 @@ public interface PermissionDao extends Mapper<Permission> {
     List<Permission> queryMenuByRole(String role);
 
     Set<String> querySetPermissions();
+
+    List<Permission> queryChildren(Long parentId);
+
 }

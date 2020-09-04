@@ -1,11 +1,11 @@
-package com.ieng.huaimi.common.utils;
+package com.ieng.huaimi.common.utils.string;
 
 import com.alibaba.fastjson.JSON;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 
-public class JSONUtil {
+public class JSONUtils {
 
     public static String toJsonString(Object o){
         return JSON.toJSONString(o);

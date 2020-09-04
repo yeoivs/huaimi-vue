@@ -1,4 +1,4 @@
-package com.ieng.huaimi.common.domain;
+package com.ieng.huaimi.common.bean;
 
 import java.io.Serializable;
 

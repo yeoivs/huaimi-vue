@@ -1,11 +1,8 @@
 package com.ieng.huaimi.database.service;
 
 import com.github.pagehelper.PageInfo;
-import com.ieng.huaimi.common.domain.PageNature;
-import com.ieng.huaimi.database.entity.Permission;
-import com.ieng.huaimi.database.entity.User;
-
-import java.util.Set;
+import com.ieng.huaimi.common.bean.PageNature;
+import com.ieng.huaimi.database.domain.User;
 
 public interface UserService {
     User findUserById(Long id);
@@ -14,10 +11,10 @@ public interface UserService {
 
     PageInfo<User> findPages(PageNature<User> pageNature);
 
-    void saveUser(User user);
+    int saveUser(User user);
 
-    void editUser(User user);
+    int editUser(User user);
 
-    void delUser(User user);
+    int delUser(User user);
 
 }

@@ -1,9 +1,10 @@
 package com.ieng.huaimi.core.security.helper;
 
-import com.ieng.huaimi.common.domain.ResultBody;
-import com.ieng.huaimi.common.enums.ServiceStatus;
-import com.ieng.huaimi.common.utils.context.ServletContextHolder;
-import com.ieng.huaimi.common.utils.StringUtil;
+import com.ieng.huaimi.common.enums.Status;
+import com.ieng.huaimi.common.exception.field.ServiceCode;
+import com.ieng.huaimi.common.utils.BUtils;
+import com.ieng.huaimi.common.utils.string.StringUtil;
+import com.ieng.huaimi.common.utils.context.HttpContextUtils;
 import com.ieng.huaimi.core.bean.UserAccredit;
 import com.ieng.huaimi.core.service.TokenService;
 import org.slf4j.Logger;
@@ -30,8 +31,9 @@ public class SecurityHelper {
     public AuthenticationEntryPoint authenticationEntryPoint() {
         return (request, response, e) -> {
             LOGGER.error(e.getMessage(), e);
-            ServletContextHolder.sendJSON(response,
-                    ResultBody.effect(ServiceStatus.UNAUTHORIZED, "认证失败，无法访问该资源", null));
+            HttpContextUtils.sendJSON(response,
+                    BUtils.error(ServiceCode.SIGNATURE_NOT_MATCH.getResultCode(),
+                            "认证失败，无法访问该资源"));
             //response.sendError(ServiceStatus.UNAUTHORIZED.status(), "认证失败，无法访问该资源");
         };
     }
@@ -40,8 +42,9 @@ public class SecurityHelper {
     public AccessDeniedHandler accessDeniedHandler(){
         return (request, response, e) -> {
             LOGGER.error(e.getMessage(), e);
-            ServletContextHolder.sendJSON(response,
-                    ResultBody.effect(ServiceStatus.FORBIDDEN, "权限不足", null));
+            HttpContextUtils.sendJSON(response,
+                    BUtils.error(ServiceCode.UNDER_AUTHORITY.getResultCode(),
+                            ServiceCode.UNDER_AUTHORITY.getResultMsg()));
             //response.sendError(ServiceStatus.FORBIDDEN.status(), "权限不足");
         };
     }
@@ -53,8 +56,8 @@ public class SecurityHelper {
             if(!StringUtil.isNull(userAccredit)){
                 tokenService.delToken(userAccredit.getToken());
             }
-            ServletContextHolder.sendJSON(response,
-                    ResultBody.effect(ServiceStatus.SUCCEED, "退出成功", null));
+            HttpContextUtils.sendJSON(response,
+                    BUtils.error(Status.SUCCEED.status(), "退出成功"));
         };
     }
 

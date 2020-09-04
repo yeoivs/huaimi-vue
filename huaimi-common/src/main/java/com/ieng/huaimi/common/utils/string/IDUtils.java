@@ -1,8 +1,8 @@
-package com.ieng.huaimi.common.utils;
+package com.ieng.huaimi.common.utils.string;
 
 import java.util.UUID;
 
-public class IDUtil {
+public class IDUtils {
 
     public static String randomUUID(){
         return UUID.randomUUID().toString();

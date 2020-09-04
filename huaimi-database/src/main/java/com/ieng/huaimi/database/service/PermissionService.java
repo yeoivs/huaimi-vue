@@ -1,6 +1,6 @@
 package com.ieng.huaimi.database.service;
 
-import com.ieng.huaimi.database.entity.Permission;
+import com.ieng.huaimi.database.domain.Permission;
 
 import java.util.List;
 import java.util.Set;
@@ -16,12 +16,13 @@ public interface PermissionService {
 
     List<Permission> findPermissionList();
 
+    List<Permission> findMenu(Set<String> roles);
+
     int savePermission(Permission permission);
 
     int editPermission(Permission permission);
 
     int delPermission(Long id);
 
-    List<Permission> findMenu(Set<String> roles);
 
 }

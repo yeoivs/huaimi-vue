@@ -18,4 +18,15 @@
         DELETE FROM sys_role_permission WHERE role_id = #{roleId}
     </delete>
 
+    <select id="queryIdsByRoleId" resultType="java.lang.Long">
+        SELECT srp.permission_id
+        FROM sys_role_permission srp
+        WHERE srp.role_id = #{id}
+    </select>
+
+    <select id="queryIdsAll" resultType="java.lang.Long">
+        select sp.id
+        from sys_permission sp
+    </select>
+
 </mapper>

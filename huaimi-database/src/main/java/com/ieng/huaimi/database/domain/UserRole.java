@@ -1,4 +1,4 @@
-package com.ieng.huaimi.database.entity;
+package com.ieng.huaimi.database.domain;
 
 import lombok.Data;
 

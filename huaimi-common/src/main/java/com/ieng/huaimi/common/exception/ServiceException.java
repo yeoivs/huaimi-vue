@@ -5,8 +5,8 @@ import com.ieng.huaimi.common.exception.face.BaseCodeInterface;
 public class ServiceException extends BaseException{
     private static final long serialVersionUID = 1L;
 
-    protected int errorCode;
-    protected String errorMsg;
+    private int errorCode = -1;
+    private String errorMsg;
 
     public ServiceException(){
         super();
@@ -27,4 +27,11 @@ public class ServiceException extends BaseException{
         this.errorMsg = message;
     }
 
+    public int getErrorCode() {
+        return errorCode;
+    }
+
+    public String getErrorMsg() {
+        return errorMsg;
+    }
 }

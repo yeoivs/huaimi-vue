@@ -1,4 +1,4 @@
-package com.ieng.huaimi.common.utils;
+package com.ieng.huaimi.core.security;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 

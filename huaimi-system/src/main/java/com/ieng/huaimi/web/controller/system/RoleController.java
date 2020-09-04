@@ -1,8 +1,9 @@
 package com.ieng.huaimi.web.controller.system;
 
-import com.ieng.huaimi.common.domain.ResultBody;
-import com.ieng.huaimi.core.security.SecurityHolder;
-import com.ieng.huaimi.database.entity.Role;
+import com.ieng.huaimi.common.bean.ResultBody;
+import com.ieng.huaimi.common.utils.BUtils;
+import com.ieng.huaimi.core.security.SecurityUtils;
+import com.ieng.huaimi.database.domain.Role;
 import com.ieng.huaimi.database.service.RoleService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,53 +23,35 @@ public class RoleController {
     @PreAuthorize("hasAuthority('system:role:list')")
     @GetMapping("/list")
     public ResultBody roleList() {
-        return ResultBody.succeed(roleService.findRoleList());
+        return BUtils.data(roleService.findRoleList());
     }
 
     @PreAuthorize("hasAuthority('system:role:read')")
     @GetMapping("/{id}")
-    public ResultBody readRole(@RequestParam("id") Long id) {
-        return ResultBody.succeed(roleService.findRoleById(id));
+    public ResultBody readRole(@PathVariable("id") Long id) {
+        return BUtils.data(roleService.findRoleById(id));
     }
 
     @PreAuthorize("hasAuthority('system:role:save')")
     @PostMapping
     public ResultBody saveRole(@RequestBody Role role) {
-        try {
-            role.setCreateTime(new Date());
-            role.setCreatedBy(SecurityHolder.getUsername());
-            roleService.saveRole(role);
-            return ResultBody.succeed(null);
-        } catch (Exception e) {
-            LOGGER.error(e.getMessage(), e);
-            return ResultBody.failed("添加角色失败");
-        }
+        role.setCreateTime(new Date());
+        role.setCreatedBy(SecurityUtils.getUsername());
+        return BUtils.succeed(roleService.saveRole(role));
     }
 
     @PreAuthorize("hasAuthority('system:role:edit')")
     @PutMapping
     public ResultBody editRole(@RequestBody Role role) {
-        try {
-            role.setModifyTime(new Date());
-            role.setModifiedBy(SecurityHolder.getUsername());
-            roleService.editRole(role);
-            return ResultBody.succeed(null);
-        } catch (Exception e) {
-            LOGGER.error(e.getMessage(), e);
-            return ResultBody.failed("更新角色信息失败");
-        }
+        role.setModifyTime(new Date());
+        role.setModifiedBy(SecurityUtils.getUsername());
+        return BUtils.succeed(roleService.editRole(role));
     }
 
-    @PreAuthorize("hasAuthority('system:role:remove')")
+    @PreAuthorize("hasAuthority('system:role:del')")
     @DeleteMapping
     public ResultBody delRole(@RequestParam(name = "id") Long id) {
-        try {
-            roleService.delRole(id);
-            return ResultBody.succeed(null);
-        } catch (Exception e) {
-            LOGGER.error(e.getMessage(), e);
-            return ResultBody.failed("删除角色失败");
-        }
+        return BUtils.succeed(roleService.delRole(id));
     }
 
 }

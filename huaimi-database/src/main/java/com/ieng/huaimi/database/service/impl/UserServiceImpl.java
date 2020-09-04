@@ -2,17 +2,14 @@ package com.ieng.huaimi.database.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.ieng.huaimi.common.domain.PageNature;
+import com.ieng.huaimi.common.bean.PageNature;
 import com.ieng.huaimi.common.enums.RoleType;
-import com.ieng.huaimi.common.utils.PasswordUtil;
-import com.ieng.huaimi.common.utils.StringUtil;
-import com.ieng.huaimi.database.entity.Role;
-import com.ieng.huaimi.database.entity.User;
+import com.ieng.huaimi.database.domain.Role;
+import com.ieng.huaimi.database.domain.User;
 import com.ieng.huaimi.database.mapper.RoleDao;
 import com.ieng.huaimi.database.mapper.UserDao;
 import com.ieng.huaimi.database.mapper.UserRoleDao;
 import com.ieng.huaimi.database.service.UserService;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -58,26 +55,24 @@ public class UserServiceImpl implements UserService {
 
     @Transactional
     @Override
-    public void saveUser(User user) {
-        if(StringUtils.isNotBlank(user.getPassword())){
-            user.setPassword(PasswordUtil.encode(user.getPassword()));
-        }
-        userDao.insertSelective(user);
+    public int saveUser(User user) {
+        int count = userDao.insertSelective(user);
         userRoleDao.addIdsByUserId(user.getId(), user.getRoleIds());
+        return count;
     }
 
     @Transactional
     @Override
-    public void editUser(User user) {
-        userDao.updateByPrimaryKeySelective(user);
+    public int editUser(User user) {
+        return userDao.updateByPrimaryKeySelective(user);
     }
 
     @Transactional
     @Override
-    public void delUser(User user) {
+    public int delUser(User user) {
         Example example = new Example(User.class);
         example.or().andEqualTo("id", user.getId());
         example.or().andBetween("createTime", user.getCreateTime(), user.getModifyTime());
-        userDao.deleteByExample(example);
+        return userDao.deleteByExample(example);
     }
 }

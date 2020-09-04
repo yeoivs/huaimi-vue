@@ -1,7 +1,7 @@
 package com.ieng.huaimi.core.bean;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.ieng.huaimi.database.entity.User;
+import com.ieng.huaimi.database.domain.User;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

@@ -4,11 +4,11 @@ import org.springframework.security.core.Authentication;
 
 public interface AccessService {
 
-    boolean hasPermission(Authentication authentication);
+    boolean hasURI(Authentication authentication);
 
     boolean hasAnyPermission(String... name);
 
-    boolean hasPermission(String name);
+    boolean permission(String name);
 
     boolean hasAnyRoles(String name);
 

@@ -1,6 +1,6 @@
 package com.ieng.huaimi.database.service;
 
-import com.ieng.huaimi.database.entity.Role;
+import com.ieng.huaimi.database.domain.Role;
 
 import java.util.List;
 import java.util.Set;

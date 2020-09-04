@@ -19,6 +19,12 @@
         <result column="modify_time" property="modifyTime"/>
         <result column="modified_by" property="modifiedBy"/>
     </resultMap>
+    
+    <resultMap id="ChildrenResultMap" type="Permission" extends="BaseResultMap">
+        <collection property="children" resultMap="BaseResultMap" select="queryChildren" column="{parentId=id}">
+            
+        </collection>
+    </resultMap>
 
     <select id="querySetPermissions" resultType="string">
         select sp.perms from sys_permission sp
@@ -40,11 +46,15 @@
             where sr.perms = #{name}
     </select>
 
-    <select id="queryMenuByRole" parameterType="string" resultType="Permission">
+    <select id="queryMenuByRole" parameterType="string" resultMap="ChildrenResultMap">
         select sp.* from sys_permission sp
         left join sys_role_permission srp on sp.id = srp.permission_id
         left join sys_role sr on srp.role_id = sr.id
-        where sr.perms = #{role} and sp.status = 1 and sp.type = '0' or sp.type = '1' order by sp.parent_id,sp.sort
+        where sr.perms = #{role} and sp.status = 1 and sp.type = '0' order by sp.parent_id,sp.sort
+    </select>
+    
+    <select id="queryChildren" resultType="Permission">
+        select sp.* from sys_permission sp where sp.id = #{parentId} order by sp.sort
     </select>
 
 </mapper>

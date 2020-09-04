@@ -1,6 +1,9 @@
 package com.ieng.huaimi.database.service.impl;
 
-import com.ieng.huaimi.database.entity.Role;
+import com.ieng.huaimi.common.enums.RoleType;
+import com.ieng.huaimi.common.exception.ServiceException;
+import com.ieng.huaimi.common.exception.field.ServiceCode;
+import com.ieng.huaimi.database.domain.Role;
 import com.ieng.huaimi.database.mapper.RoleDao;
 import com.ieng.huaimi.database.mapper.RolePermissionDao;
 import com.ieng.huaimi.database.service.RoleService;
@@ -25,7 +28,15 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public Role findRoleById(Long id) {
-        return roleDao.selectByPrimaryKey(id);
+        Role role = roleDao.selectByPrimaryKey(id);
+        if(role != null){
+            if(RoleType.SYSDBA.getName().equals(role.getPerms())){
+                role.setPermissionIds(rolePermissionDao.queryIdsAll());
+            }else{
+                role.setPermissionIds(rolePermissionDao.queryIdsByRoleId(role.getId()));
+            }
+        }
+        return role;
     }
 
     @Override
@@ -36,29 +47,41 @@ public class RoleServiceImpl implements RoleService {
     @Transactional
     @Override
     public int saveRole(Role role) {
-        roleDao.insertSelective(role);
-        return insertRolePermission(role);
+        int count = roleDao.insertSelective(role);
+        insertRolePermission(role);
+        return count;
     }
 
     @Transactional
     @Override
     public int editRole(Role role) {
-        roleDao.updateByPrimaryKeySelective(role);
-        rolePermissionDao.delRolePermissionByRoleId(role.getId());
-        return insertRolePermission(role);
+        int count = 0;
+        if(role != null){
+            if(RoleType.SYSDBA.getName().equals(role.getPerms())){
+                throw new ServiceException(ServiceCode.ADMINISTRATOR_FORBID);
+            }
+            count = roleDao.updateByPrimaryKeySelective(role);
+            rolePermissionDao.delRolePermissionByRoleId(role.getId());
+            insertRolePermission(role);
+        }
+        return count;
     }
 
     @Transactional
     @Override
     public int delRole(Long id) {
+
+        if(id != null && String.valueOf(RoleType.SYSDBA.getCode()).equals(id.toString())){
+            throw new ServiceException(ServiceCode.ADMINISTRATOR_FORBID);
+        }
+
         return roleDao.deleteByPrimaryKey(id);
     }
 
-    private int insertRolePermission(Role role){
+    private void insertRolePermission(Role role){
         if (role != null && role.getPermissionIds() != null) {
-            return rolePermissionDao.addRolePermissionIds(role.getId(), role.getPermissionIds());
+            rolePermissionDao.addRolePermissionIds(role.getId(), role.getPermissionIds());
         }
-        return 0;
     }
 
 }

@@ -3,9 +3,10 @@ package com.ieng.huaimi.core.service.impl;
 import com.ieng.huaimi.common.constant.HeaderConstant;
 import com.ieng.huaimi.common.constant.KeyConstant;
 import com.ieng.huaimi.common.constant.SessionConstant;
-import com.ieng.huaimi.common.utils.IDUtil;
-import com.ieng.huaimi.core.cache.RedisCache;
+import com.ieng.huaimi.common.utils.string.IDUtils;
 import com.ieng.huaimi.core.bean.UserAccredit;
+import com.ieng.huaimi.core.cache.RedisCache;
+import com.ieng.huaimi.core.config.properties.TokenProperties;
 import com.ieng.huaimi.core.service.TokenService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -13,41 +14,23 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Service;
-import org.springframework.validation.annotation.Validated;
 
 import javax.crypto.spec.SecretKeySpec;
 import javax.servlet.http.HttpServletRequest;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
 
-@ConfigurationProperties(prefix = "jwt")
-@Validated
-@Service
+@Service("redisTokenService")
 public class TokenServiceImpl implements TokenService {
-    @NotEmpty
-    private String secret;
-    @NotNull
-    private Duration expiration;
+    @Autowired
+    private TokenProperties properties;
     @Autowired
     private RedisCache redisCache;
 
-    public void setSecret(String secret) {
-        this.secret = secret;
-    }
-
-    public void setExpiration(Duration expiration) {
-        this.expiration = expiration;
-    }
-
-
     @Override
     public String createToken(UserAccredit userAccredit) {
-        String uuid = IDUtil.uuid();
+        String uuid = IDUtils.uuid();
 
         userAccredit.setToken(uuid);
 
@@ -83,8 +66,8 @@ public class TokenServiceImpl implements TokenService {
     @Override
     public void refreshToken(UserAccredit userAccredit) {
         userAccredit.setAccessTime(System.currentTimeMillis());
-        userAccredit.setExpireTime(userAccredit.getAccessTime() + this.expiration.toMillis() * 1000);
-        redisCache.setObject(SessionConstant.USER_KEY_PREFIX + userAccredit.getToken(), userAccredit, this.expiration.toMinutes() * 60);
+        userAccredit.setExpireTime(userAccredit.getAccessTime() + properties.getExpiration().toMillis() * 1000);
+        redisCache.setObject(SessionConstant.USER_KEY_PREFIX + userAccredit.getToken(), userAccredit, properties.getExpiration().toMinutes() * 60);
     }
 
     private String getToken(HttpServletRequest request) {
@@ -100,13 +83,13 @@ public class TokenServiceImpl implements TokenService {
         return Jwts.builder()
                 .setClaims(claims)
                 //.setExpiration(time)
-                .signWith(SignatureAlgorithm.HS256, secretKeySpec(this.secret))
+                .signWith(SignatureAlgorithm.HS256, secretKeySpec(properties.getSecret()))
                 .compact();
     }
 
     private Claims parserJWT(String token){
         return Jwts.parser()
-                .setSigningKey(secretKeySpec(this.secret))
+                .setSigningKey(secretKeySpec(properties.getSecret()))
                 .parseClaimsJws(token)
                 .getBody();
     }

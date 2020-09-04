@@ -3,7 +3,7 @@ package com.ieng.huaimi.core.security;
 import com.ieng.huaimi.core.bean.UserAccredit;
 import org.springframework.security.core.context.SecurityContextHolder;
 
-public class SecurityHolder {
+public class SecurityUtils {
 
     /**
      * 获取当前登录的用户

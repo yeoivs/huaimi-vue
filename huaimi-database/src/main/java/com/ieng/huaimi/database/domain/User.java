@@ -1,4 +1,4 @@
-package com.ieng.huaimi.database.entity;
+package com.ieng.huaimi.database.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;

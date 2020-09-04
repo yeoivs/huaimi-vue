@@ -1,15 +1,22 @@
-package com.ieng.huaimi.core.config;
+package com.ieng.huaimi.core.exception;
 
-import com.ieng.huaimi.common.domain.ResultBody;
+import com.ieng.huaimi.common.bean.ResultBody;
+import com.ieng.huaimi.common.exception.BaseException;
+import com.ieng.huaimi.common.exception.ServiceException;
+import com.ieng.huaimi.common.exception.field.ServiceCode;
+import com.ieng.huaimi.common.utils.BUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageConversionException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.servlet.NoHandlerFoundException;
 
 import java.util.List;
 
@@ -34,14 +41,23 @@ public class GlobalExceptionHandler {
                 message = fieldError.getDefaultMessage();
             }
         }
-        return ResultBody.failed("".equals(message) ? "请填写正确信息" : message);
+        return BUtils.error(message);
     }
 
     @ExceptionHandler(HttpMessageConversionException.class)
     public ResultBody parameterTypeException(HttpMessageConversionException e){
         LOGGER.warn(e.getMessage(), e);
-        return ResultBody.failed("参数类型转换错误");
+        return BUtils.error("参数类型转换错误");
     }
 
+    @ExceptionHandler(BaseException.class)
+    public ResultBody baseException(BaseException e){
+        LOGGER.error(e.getMessage(), e);
+        if(e instanceof ServiceException){
+            ServiceException exception = (ServiceException) e;
+            return BUtils.error(exception.getErrorCode(), exception.getErrorMsg());
+        }
+        return BUtils.error(e.getMessage());
+    }
 
 }
