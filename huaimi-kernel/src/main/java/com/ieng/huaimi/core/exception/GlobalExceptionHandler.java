@@ -3,20 +3,16 @@ package com.ieng.huaimi.core.exception;
 import com.ieng.huaimi.common.bean.ResultBody;
 import com.ieng.huaimi.common.exception.BaseException;
 import com.ieng.huaimi.common.exception.ServiceException;
-import com.ieng.huaimi.common.exception.field.ServiceCode;
 import com.ieng.huaimi.common.utils.BUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageConversionException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import org.springframework.web.servlet.NoHandlerFoundException;
 
 import java.util.List;
 

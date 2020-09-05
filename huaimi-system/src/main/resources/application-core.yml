@@ -2,12 +2,17 @@ server:
   tomcat:
     uri-encoding: UTF-8
     max-threads: 200
-    max-connections: 10000
-    min-spare-threads: 20
-    connection-timeout: 20000
+    min-spare-threads: 30
+  servlet:
+    context-path: /huaimi-api
 spring:
   application:
     name: HUAIMI
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 100MB
+      max-request-size: 10MB
   jackson:
     time-zone: GMT+8
     date-format: yyyy-MM-dd HH:mm:ss

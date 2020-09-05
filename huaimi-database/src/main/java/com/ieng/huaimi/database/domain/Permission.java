@@ -34,7 +34,6 @@ public class Permission implements Serializable {
     private Date modifyTime;
     private String modifiedBy;
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private List<Permission> children;
 
 }

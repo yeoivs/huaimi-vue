@@ -21,7 +21,7 @@
     </resultMap>
     
     <resultMap id="ChildrenResultMap" type="Permission" extends="BaseResultMap">
-        <collection property="children" resultMap="BaseResultMap" select="queryChildren" column="{parentId=id}">
+        <collection property="children" ofType="Permission" select="queryChildren" column="{parentId=id}">
             
         </collection>
     </resultMap>

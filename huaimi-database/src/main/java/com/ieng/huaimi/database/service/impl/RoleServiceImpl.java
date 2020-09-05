@@ -2,7 +2,7 @@ package com.ieng.huaimi.database.service.impl;
 
 import com.ieng.huaimi.common.enums.RoleType;
 import com.ieng.huaimi.common.exception.ServiceException;
-import com.ieng.huaimi.common.exception.field.ServiceCode;
+import com.ieng.huaimi.common.exception.ServiceCode;
 import com.ieng.huaimi.database.domain.Role;
 import com.ieng.huaimi.database.mapper.RoleDao;
 import com.ieng.huaimi.database.mapper.RolePermissionDao;

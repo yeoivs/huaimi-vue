@@ -1,7 +1,7 @@
 package com.ieng.huaimi.core.security.helper;
 
 import com.ieng.huaimi.common.enums.Status;
-import com.ieng.huaimi.common.exception.field.ServiceCode;
+import com.ieng.huaimi.common.exception.ServiceCode;
 import com.ieng.huaimi.common.utils.BUtils;
 import com.ieng.huaimi.common.utils.string.StringUtil;
 import com.ieng.huaimi.common.utils.context.HttpContextUtils;

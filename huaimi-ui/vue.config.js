@@ -1,25 +1,28 @@
 module.exports = {
-    publicPath: process.env.NODE_ENV === 'production' ? '' : '/',
+    publicPath: process.env.NODE_ENV === 'production' ? '/path/' : '/',
     outputDir: 'dist',
-    assetsDir: 'static',
-    lintOnSave: true,
-    productionSourceMap: false,
+    assetsDir: 'assets',
+    lintOnSave: process.env.NODE_ENV !== 'production',
     devServer: {
-        host: '0.0.0.0',
-        port: 80,
         open: false,
+        host: '0.0.0.0',
+        port: 8080,
         https: false,
-        hotOnly: true,
+        hotOnly: false,
         proxy: {
             '/api': {
-                target: 'http://127.0.0.1:9011/',
-                //ws: true,
-                changeOrigin: false,
+                target: 'http://localhost:9101/huaimi-api',
+                ws: true,
+                changeOrigin: true,
                 pathRewrite: {
-                    '^/api': ''
+                    '^/api': '/'
                 }
             }
+        },
+        overlay: {
+            warnings: true,
+            errors: true
         }
     },
-    parallel: require('os').cpus().length > 1
+    parallel: require("os").cpus().length > 1,
 }
