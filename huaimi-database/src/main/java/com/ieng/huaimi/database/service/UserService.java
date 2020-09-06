@@ -1,7 +1,7 @@
 package com.ieng.huaimi.database.service;
 
 import com.github.pagehelper.PageInfo;
-import com.ieng.huaimi.common.bean.PageNature;
+import com.ieng.huaimi.common.view.PageNature;
 import com.ieng.huaimi.database.domain.User;
 
 public interface UserService {

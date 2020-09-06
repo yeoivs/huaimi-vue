@@ -45,6 +45,8 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
     private void refreshExpireTime(UserAccredit userAccredit){
         long expireTime = userAccredit.getExpireTime();
         long currentTime = System.currentTimeMillis();
+        String format = String.format("Token ==> %d - %d = %d <= %d", expireTime, currentTime, (expireTime - currentTime), MINUTES_10);
+        System.out.println(format);
         if(expireTime - currentTime <= MINUTES_10){
             String uuid = userAccredit.getToken();
             userAccredit = (UserAccredit) userDetailsService.loadUserByUsername(userAccredit.getUsername());

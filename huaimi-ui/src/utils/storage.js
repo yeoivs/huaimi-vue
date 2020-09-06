@@ -11,13 +11,21 @@ export function clear(){
 }
 
 export function get(key){
+    return window.sessionStorage.getItem(key)
+}
+
+export function set(key, val){
+    return window.sessionStorage.setItem(key, val)
+}
+
+export function getLocal(key){
     return window.localStorage.getItem(key)
 }
 
-export function set(key, value){
+export function setLocal(key, value){
     return window.localStorage.setItem(key, value);
 }
 
-const storage = { setToken, getToken, clear, get, set }
+const storage = { setToken, getToken, get, set, clear, getLocal, setLocal }
 
 export default storage

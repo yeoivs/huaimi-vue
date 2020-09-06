@@ -24,8 +24,9 @@ public class UserAccredit implements UserDetails {
     @JsonIgnore
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        permissions.addAll(roles.stream().map(s -> "ROLE_" + s).collect(Collectors.toSet()));
-        return permissions.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toSet());
+        /*permissions.addAll(roles.stream().map(s -> "ROLE_" + s).collect(Collectors.toSet()));
+        return permissions.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toSet());*/
+        return null;
     }
 
     @JsonIgnore

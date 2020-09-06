@@ -1,10 +1,8 @@
 package com.test;
 
-import com.ieng.huaimi.common.bean.ResultBody;
-import com.ieng.huaimi.database.domain.User;
+import com.ieng.huaimi.common.view.ResultBody;
 import org.junit.Test;
 
-import java.io.File;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 

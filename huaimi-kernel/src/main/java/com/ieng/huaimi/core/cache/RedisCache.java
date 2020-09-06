@@ -23,7 +23,7 @@ public class RedisCache {
     }
 
     public <T> void setObject(String key, T value, long timeout){
-        setObject(key, value, timeout, TimeUnit.SECONDS);
+        setObject(key, value, timeout, TimeUnit.MILLISECONDS);
     }
 
     public <T> void setObject(String key, T value, long timeout, TimeUnit timeUnit){

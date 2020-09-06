@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Collection;
 
-@Service("AC")
+@Service("rbac")
 public class AccessServiceImpl implements AccessService {
     private static final String SPLIT_POINT = ",";
     @Autowired

@@ -66,8 +66,8 @@ public class TokenServiceImpl implements TokenService {
     @Override
     public void refreshToken(UserAccredit userAccredit) {
         userAccredit.setAccessTime(System.currentTimeMillis());
-        userAccredit.setExpireTime(userAccredit.getAccessTime() + properties.getExpiration().toMillis() * 1000);
-        redisCache.setObject(SessionConstant.USER_KEY_PREFIX + userAccredit.getToken(), userAccredit, properties.getExpiration().toMinutes() * 60);
+        userAccredit.setExpireTime(userAccredit.getAccessTime() + properties.getExpiration().toMillis());
+        redisCache.setObject(SessionConstant.USER_KEY_PREFIX + userAccredit.getToken(), userAccredit, properties.getExpiration().toMillis());
     }
 
     private String getToken(HttpServletRequest request) {

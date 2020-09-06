@@ -33,7 +33,7 @@ public class Permission implements Serializable {
     private String createdBy;
     private Date modifyTime;
     private String modifiedBy;
-
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private List<Permission> children;
 
 }

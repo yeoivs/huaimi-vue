@@ -52,13 +52,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         //判断用户是否拥有角色 否-默认普通用户
         if (!roles.isEmpty()) {
             for (String role : roles) {
-                if (RoleType.SYSDBA.getName().equals(role)) {
-                    roles.add(RoleType.SYSDBA.getName());
-                    permissions.addAll(permissionService.findSetPermissions());
-                    break;
-                } else {
-                    permissions.addAll(permissionService.findPermissionsByRole(role));
-                }
+                permissions.addAll(permissionService.findPermissionsByRole(role));
             }
         } else {
             roles.add(RoleType.USER.getName());

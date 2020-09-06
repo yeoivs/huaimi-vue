@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Set;
 
 public interface PermissionService {
-    Set<String> findSetPermissions();
 
     Set<String> findPermissions(String username);
 
@@ -16,6 +15,8 @@ public interface PermissionService {
 
     List<Permission> findPermissionList();
 
+    List<Permission> findPermissionTree();
+
     List<Permission> findMenu(Set<String> roles);
 
     int savePermission(Permission permission);
@@ -23,6 +24,4 @@ public interface PermissionService {
     int editPermission(Permission permission);
 
     int delPermission(Long id);
-
-
 }

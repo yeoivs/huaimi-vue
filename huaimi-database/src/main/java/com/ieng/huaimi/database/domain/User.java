@@ -1,6 +1,7 @@
 package com.ieng.huaimi.database.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import tk.mybatis.mapper.annotation.LogicDelete;
@@ -27,8 +28,7 @@ public class User implements Serializable {
     @Email(message = "邮箱格式不正确")
     private String email;
     private String phone;
-    @JsonIgnore
-    @JsonProperty
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String password;
     @JsonIgnore
     private String salt;

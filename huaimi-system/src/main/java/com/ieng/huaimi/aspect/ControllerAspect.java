@@ -15,8 +15,8 @@ import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
-@Aspect
-@Component
+/*@Aspect
+@Component*/
 public class ControllerAspect {
 
     @Pointcut("execution(* com.ieng.huaimi..*.controller..*.*(..))")

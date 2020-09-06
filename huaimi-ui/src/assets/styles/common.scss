@@ -1,10 +1,20 @@
 @import "normalize.css";
+@import "variable";
 
 body{
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #f9f9f9;
   color: #2c3e50;
+}
+
+a {
+  text-decoration: none;
+  color: #2c3e50;
+  &.router-link-exact-active {
+    color: #42b983;
+  }
 }
 
 .login-layout{
@@ -19,7 +29,164 @@ body{
     margin-left: -200px;
     margin-top: -140px;
     padding: 35px 25px 20px;
-    background: #f3f3f3;
     box-sizing: border-box;
+  }
+}
+
+.layout-admin{
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  &.layout-collapse{
+    .layout-aside,
+    .layout-logo{
+      width: 64px !important;
+    }
+    .head-left{
+      margin-left: 64px !important;
+    }
+    .layout-logo i{
+      display: block !important;
+      line-height: $header_height;
+      font-size: 20px;
+      color: #ea6721;
+    }
+    .layout-logo span{
+      display: none;
+    }
+  }
+  .layout-header{
+    background: $header_bg;
+    height: $header_height !important;
+    border: 1px solid #eee;
+    z-index: 1000;
+    padding-right: 0;
+    user-select: none;
+    .head-left{
+      float: left;
+      margin-left: $aside_width;
+      .el-breadcrumb{
+        height: $header_menu_height;
+        line-height: $header_menu_height;
+      }
+    }
+    .nav-right{
+      float: right;
+    }
+    .el-menu.el-menu--horizontal{
+      border-bottom: 0 none;
+    }
+    .el-menu--horizontal>.el-menu-item,
+    .el-menu--horizontal>.el-submenu .el-submenu__title{
+      height: $header_menu_height;
+      line-height: $header_menu_height;
+      border-bottom: 0 none;
+    }
+    .el-menu-item{
+      padding: 0 15px;
+    }
+  }
+  .layout-body{
+    position: absolute;
+    top: $header_height;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+  .layout-aside{
+    position: relative;
+    height: 100%;
+    width: $aside_width !important;
+    background: $aside_bg;
+    overflow-x: hidden;
+    user-select: none;
+    .layout-scroll{
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 400px;
+    }
+    .layout-side{
+      width: $aside_width;
+      > .el-menu{
+        border-right: 0 none;
+        > .el-menu-item:hover,
+        .el-submenu__title:hover{
+          background-color: #255387 !important;
+        }
+      }
+      .el-menu-item,
+      .el-submenu__title{
+        height: $menu_height;
+        line-height: $menu_height;
+      }
+      .el-submenu .el-menu-item{
+        height: $submenu_height;
+        line-height: $submenu_height;
+      }
+      > .el-menu > li.el-menu-item,
+      > .el-menu > li.el-submenu > .el-submenu__title{
+          background-color: $aside_bg;
+          color: #fff;
+      }
+      > .el-menu > li.el-menu-item.is-active {
+        background-color: $item_active_bg !important;
+      }
+      .el-submenu{
+        .el-menu .el-menu-item{
+          background-color: $menu_item_bg;
+          color: #fff;
+          &:hover{
+            background-color: $menu_item_hover !important;
+          }
+          &.is-active{
+            background-color: $item_active_bg !important;
+          }
+        }
+      }
+    }
+  }
+  .layout-main{
+    padding: 10px 15px;
+  }
+  .layout-logo{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: $aside_width;
+    height: $header_height;
+    line-height: $header_height;
+    background: $logo_bg;
+    z-index: 1001;
+    text-align: center;
+    font-size: 18px;
+    font-family: "Lucida Console";
+    a{
+      cursor: pointer;
+    }
+    span{
+      letter-spacing: 1px;
+      color: #fff;
+    }
+  }
+}
+
+.layout-content{
+  .layout-groups{
+    margin-bottom: 10px;
+  }
+  .layout-page{
+    margin-top: 20px;
+    .el-pagination{
+      .el-pagination__jump{
+        margin-left: 0;
+        margin-right: 10px;
+      }
+      .el-pagination__sizes{
+        margin-left: 10px;
+      }
+    }
   }
 }

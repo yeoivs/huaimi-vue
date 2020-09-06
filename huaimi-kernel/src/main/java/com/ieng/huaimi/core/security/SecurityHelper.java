@@ -1,5 +1,6 @@
-package com.ieng.huaimi.core.security.helper;
+package com.ieng.huaimi.core.security;
 
+import com.ieng.huaimi.common.constant.HeaderConstant;
 import com.ieng.huaimi.common.enums.Status;
 import com.ieng.huaimi.common.exception.ServiceCode;
 import com.ieng.huaimi.common.utils.BUtils;
@@ -14,6 +15,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.access.AccessDeniedHandler;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 
 /**
@@ -31,10 +33,16 @@ public class SecurityHelper {
     public AuthenticationEntryPoint authenticationEntryPoint() {
         return (request, response, e) -> {
             LOGGER.error(e.getMessage(), e);
-            HttpContextUtils.sendJSON(response,
-                    BUtils.error(ServiceCode.SIGNATURE_NOT_MATCH.getResultCode(),
-                            "认证失败，无法访问该资源"));
-            //response.sendError(ServiceStatus.UNAUTHORIZED.status(), "认证失败，无法访问该资源");
+            String token = request.getHeader(HeaderConstant.HEADER);
+            if(token != null){
+                HttpContextUtils.sendJSON(response,
+                        BUtils.error(ServiceCode.SIGNATURE_NOT_MATCH.getResultCode(),
+                                "认证失败"));
+            } else {
+                HttpContextUtils.sendJSON(response,
+                        BUtils.error(ServiceCode.PASSWORD_ERROR.getResultCode(),
+                                ServiceCode.PASSWORD_ERROR.getResultMsg()));
+            }
         };
     }
 

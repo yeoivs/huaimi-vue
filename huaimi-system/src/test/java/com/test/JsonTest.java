@@ -1,11 +1,9 @@
 package com.test;
 
-import com.ieng.huaimi.common.bean.PageNature;
-import com.ieng.huaimi.common.bean.ResultBody;
+import com.ieng.huaimi.common.view.PageNature;
+import com.ieng.huaimi.common.view.ResultBody;
 import com.ieng.huaimi.common.utils.string.JSONUtils;
 import org.junit.Test;
-
-import java.util.Arrays;
 
 public class JsonTest {
 

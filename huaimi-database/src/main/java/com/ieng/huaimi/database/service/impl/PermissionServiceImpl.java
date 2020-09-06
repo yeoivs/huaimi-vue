@@ -7,6 +7,7 @@ import com.ieng.huaimi.database.service.PermissionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import tk.mybatis.mapper.entity.Example;
 
 import java.util.*;
 
@@ -14,11 +15,6 @@ import java.util.*;
 public class PermissionServiceImpl implements PermissionService {
     @Autowired
     private PermissionDao permissionDao;
-
-    @Override
-    public Set<String> findSetPermissions() {
-        return permissionDao.querySetPermissions();
-    }
 
     @Override
     public Set<String> findPermissions(String username) {
@@ -37,6 +33,11 @@ public class PermissionServiceImpl implements PermissionService {
 
     @Override
     public List<Permission> findPermissionList() {
+        return permissionDao.selectAll();
+    }
+
+    @Override
+    public List<Permission> findPermissionTree() {
         return permissionDao.selectAll();
     }
 

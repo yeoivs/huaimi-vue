@@ -26,9 +26,6 @@
         </collection>
     </resultMap>
 
-    <select id="querySetPermissions" resultType="string">
-        select sp.perms from sys_permission sp
-    </select>
 
     <select id="querySetPermissionByUsername" parameterType="string" resultType="string">
         select sp.perms from sys_permission sp
@@ -54,7 +51,7 @@
     </select>
     
     <select id="queryChildren" resultType="Permission">
-        select sp.* from sys_permission sp where sp.id = #{parentId} order by sp.sort
+        select sp.* from sys_permission sp where sp.parent_id = #{parentId} and sp.type = '1' order by sp.sort
     </select>
 
 </mapper>

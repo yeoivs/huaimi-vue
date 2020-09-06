@@ -1,6 +1,6 @@
 package com.ieng.huaimi.common.utils;
 
-import com.ieng.huaimi.common.bean.ResultBody;
+import com.ieng.huaimi.common.view.ResultBody;
 import com.ieng.huaimi.common.enums.Status;
 
 public class BUtils {

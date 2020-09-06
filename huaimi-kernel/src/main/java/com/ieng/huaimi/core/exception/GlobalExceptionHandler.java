@@ -1,6 +1,6 @@
 package com.ieng.huaimi.core.exception;
 
-import com.ieng.huaimi.common.bean.ResultBody;
+import com.ieng.huaimi.common.view.ResultBody;
 import com.ieng.huaimi.common.exception.BaseException;
 import com.ieng.huaimi.common.exception.ServiceException;
 import com.ieng.huaimi.common.utils.BUtils;

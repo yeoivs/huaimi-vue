@@ -13,8 +13,6 @@ public interface PermissionDao extends Mapper<Permission> {
 
     List<Permission> queryMenuByRole(String role);
 
-    Set<String> querySetPermissions();
-
     List<Permission> queryChildren(Long parentId);
 
 }

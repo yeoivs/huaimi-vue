@@ -11,7 +11,7 @@ public enum ServiceCode implements BaseCodeInterface {
     CURRENT_ACCOUNT_FORBID(1422, "当前账号禁止使用"),
     ACCOUNT_DEL(1423, "账号已被删除"),
     USER_PASSWORD_ERROR(1430, "用户名或密码错误"),
-    LOGIN_ERROR(1431, "登录失败"),
+    PASSWORD_ERROR(1431, "密码错误"),
     NotDisableTheCurrentUser(1413, "不允许禁用当前用户"),
     UNDER_AUTHORITY(1214, "权限不足"),
     ADMINISTRATOR_FORBID(2001, "超级管理员,禁止任何操作"),

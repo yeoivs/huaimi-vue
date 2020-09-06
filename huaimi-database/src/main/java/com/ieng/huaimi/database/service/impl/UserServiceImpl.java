@@ -2,7 +2,7 @@ package com.ieng.huaimi.database.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.ieng.huaimi.common.bean.PageNature;
+import com.ieng.huaimi.common.view.PageNature;
 import com.ieng.huaimi.common.enums.RoleType;
 import com.ieng.huaimi.database.domain.Role;
 import com.ieng.huaimi.database.domain.User;

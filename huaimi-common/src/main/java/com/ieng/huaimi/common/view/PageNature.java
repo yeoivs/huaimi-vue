@@ -1,4 +1,4 @@
-package com.ieng.huaimi.common.bean;
+package com.ieng.huaimi.common.view;
 
 import java.io.Serializable;
 

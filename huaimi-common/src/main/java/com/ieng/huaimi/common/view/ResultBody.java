@@ -1,4 +1,4 @@
-package com.ieng.huaimi.common.bean;
+package com.ieng.huaimi.common.view;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;

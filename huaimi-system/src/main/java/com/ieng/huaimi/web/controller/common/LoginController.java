@@ -1,7 +1,7 @@
 package com.ieng.huaimi.web.controller.common;
 
-import com.ieng.huaimi.common.bean.LoginForm;
-import com.ieng.huaimi.common.bean.ResultBody;
+import com.ieng.huaimi.common.view.LoginForm;
+import com.ieng.huaimi.common.view.ResultBody;
 import com.ieng.huaimi.common.utils.BUtils;
 import com.ieng.huaimi.core.bean.UserAccredit;
 import com.ieng.huaimi.core.service.TokenService;

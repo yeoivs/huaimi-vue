@@ -99,6 +99,28 @@ insert into sys_permission (id, parent_id, name, perms, type, method, created_by
 insert into sys_permission (id, parent_id, name, perms, type, method, created_by) values ('15', 4, '删除权限', 'system:permission:del', '2', 'DELETE', '__SYS_INIT__');
 insert into sys_permission (id, parent_id, name, perms, type, method, created_by) values ('16', 4, '查询权限', 'system:permission:read', '2', 'GET', '__SYS_INIT__');
 
+insert into sys_role_permission (role_id, permission_id) values (1, 1);
+insert into sys_role_permission (role_id, permission_id) values (1, 2);
+insert into sys_role_permission (role_id, permission_id) values (1, 3);
+insert into sys_role_permission (role_id, permission_id) values (1, 4);
+insert into sys_role_permission (role_id, permission_id) values (1, 5);
+insert into sys_role_permission (role_id, permission_id) values (1, 6);
+insert into sys_role_permission (role_id, permission_id) values (1, 7);
+insert into sys_role_permission (role_id, permission_id) values (1, 8);
+insert into sys_role_permission (role_id, permission_id) values (1, 9);
+insert into sys_role_permission (role_id, permission_id) values (1, 10);
+insert into sys_role_permission (role_id, permission_id) values (1, 11);
+insert into sys_role_permission (role_id, permission_id) values (1, 12);
+insert into sys_role_permission (role_id, permission_id) values (1, 13);
+insert into sys_role_permission (role_id, permission_id) values (1, 14);
+insert into sys_role_permission (role_id, permission_id) values (1, 15);
+insert into sys_role_permission (role_id, permission_id) values (1, 16);
+
+
+insert into sys_permission (id, name, perms, type, path, created_by) values ('17', '控制台', 'control', '0', '/control', '__SYS_INIT__');
+
+insert into sys_role_permission (role_id, permission_id) values (1, 17);
+
 DROP TABLE IF EXISTS `tb_person`;
 CREATE TABLE `tb_person`(
     `user_id` bigint NOT NULL COMMENT '主键',
