@@ -10,13 +10,18 @@
       </el-breadcrumb>
     </div>
     <el-menu class="nav-right" mode="horizontal">
+      <el-menu-item>
+        <el-badge :is-dot="false" class="circle-item">
+          <i class="el-icon-bell"></i>
+        </el-badge>
+      </el-menu-item>
       <el-submenu :popper-append-to-body="false" index="1">
-        <template slot="title">root</template>
+        <template slot="title"><el-avatar :size="30" src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"></el-avatar></template>
         <el-menu-item><router-link :to="{path: '/profile'}">个人资料</router-link></el-menu-item>
         <el-menu-item><router-link :to="{path: '/passwd'}">修改密码</router-link></el-menu-item>
+        <el-menu-item><router-link :to="{path: '/'}">设置主题</router-link></el-menu-item>
         <el-menu-item @click="exit">退出系统</el-menu-item>
       </el-submenu>
-      <el-menu-item index="1">设置</el-menu-item>
     </el-menu>
   </div>
 </template>

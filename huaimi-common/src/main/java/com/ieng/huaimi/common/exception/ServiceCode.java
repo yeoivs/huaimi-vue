@@ -14,7 +14,7 @@ public enum ServiceCode implements BaseCodeInterface {
     PASSWORD_ERROR(1431, "密码错误"),
     NotDisableTheCurrentUser(1413, "不允许禁用当前用户"),
     UNDER_AUTHORITY(1214, "权限不足"),
-    ADMINISTRATOR_FORBID(2001, "超级管理员,禁止任何操作"),
+    ADMINISTRATOR_FORBID(2001, "核心权限,禁止任何操作"),
     SERVER_ERROR(5000, "服务器错误");
 
     private final int resultCode;

@@ -18,7 +18,7 @@ import java.io.IOException;
 
 @Component
 public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
-    private static final long MINUTES_10 = 10 * 60 * 1000L;
+    private static final long MINUTES_10 = 600000;
     @Autowired
     private TokenService tokenService;
     @Autowired
@@ -47,7 +47,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
         long currentTime = System.currentTimeMillis();
         String format = String.format("Token ==> %d - %d = %d <= %d", expireTime, currentTime, (expireTime - currentTime), MINUTES_10);
         System.out.println(format);
-        if(expireTime - currentTime <= MINUTES_10){
+        if((expireTime - currentTime) <= MINUTES_10){
             String uuid = userAccredit.getToken();
             userAccredit = (UserAccredit) userDetailsService.loadUserByUsername(userAccredit.getUsername());
             userAccredit.setToken(uuid);

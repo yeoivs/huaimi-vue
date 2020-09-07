@@ -8,18 +8,22 @@ export async function get(id){
     return await service.get('/system/permission/'+id)
 }
 
-export async function add(data){
+export function search(data){
+    return service.post('/system/permission/list', data)
+}
+
+export function add(data){
     return service.post('/system/permission', data)
 }
 
-export async function edit(data){
+export function edit(data){
     return service.put('/system/permission', data)
 }
 
-export async function del(params){
-    return service.delete('/system/permission', params)
+export function del(id){
+    return service.delete('/system/permission?id='+id, )
 }
 
-const permission = {get, list, edit, del, add};
+const permission = {get, list, edit, del, add, search};
 
 export default permission

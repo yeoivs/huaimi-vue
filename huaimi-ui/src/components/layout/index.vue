@@ -25,7 +25,7 @@ import storage from "@/utils/storage";
 
 export default {
   name: "Layout",
-  data(){
+  data() {
     return {
       menuList: [],
       loading: null,
@@ -37,23 +37,23 @@ export default {
     this.isCollapse = storage.get('collapse') === 'on'
   },
   methods: {
-    initMenu(){
+    initMenu() {
       this.startLoading()
       getMenu().then(res => {
-        if(res['data']){
+        if (res['data']) {
           this.loading.close()
           this.menuList = res['data']
         }
       })
     },
-    startLoading(){
+    startLoading() {
       this.loading = this.$loading({
         lock: true,
         text: '加载中,请勿进行任何操作...',
         background: 'rgba(1,1,1,.5)'
       })
     },
-    collapse(){
+    collapse() {
       this.isCollapse = !this.isCollapse
       storage.set('collapse', this.isCollapse ? 'on' : 'off')
     }
@@ -65,7 +65,9 @@ export default {
       return (() => {
         this.screenWidth = document.body.clientWidth;
         // this.screenHeight = document.body.clientHeight;
-        if(this.screenWidth <= 768) this.collapse()
+        if (this.screenWidth <= 768) {
+          if (storage.get('collapse') === 'off') this.collapse()
+        }
       })();
     }
   },

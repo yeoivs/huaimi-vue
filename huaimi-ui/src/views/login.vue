@@ -2,8 +2,7 @@
   <div class="login-layout">
     <div class="main">
       <el-form :model="loginForm" :rules="formRules"
-               :hide-required-asterisk="true"
-               ref="loginForm" size="medium"
+               :hide-required-asterisk="true" ref="loginForm" size="medium"
                label-width="50px">
         <el-form-item label="账号" prop="username">
           <el-input type="text" v-model="loginForm.username" placeholder="请输入账号"/>
@@ -13,8 +12,7 @@
         </el-form-item>
         <el-form-item>
           <el-button @click="submitForm"
-                     :loading="loading"
-                     :plain="true"
+                     :loading="loading" :plain="true"
                      type="primary" size="medium">登录</el-button>
         </el-form-item>
       </el-form>

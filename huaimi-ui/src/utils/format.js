@@ -1,8 +1,22 @@
 export function toTreeData(data, config = {
     id: 'id', parentId: 'parentId', children: 'children'
 }){
-    let tree = data.filter(a => a[config.parentId] === 0)
-    return treeFun(tree, data, config)
+    const row = data
+    let tree = row.filter(a => a[config.parentId] === 0)
+    if(tree.length <= 0){
+        tree = row.filter(a => {
+            let flag = false
+            for (let i = 0; i < row.length; i++) {
+                if(row[i][config.parentId] === a[config.id]){
+                    flag = true
+                    break
+                }
+            }
+            return flag
+        })
+        if(tree.length <= 0) return row
+    }
+    return treeFun(tree, row, config)
 }
 
 function treeFun(tree, row, config){
@@ -25,6 +39,6 @@ export function formatDate(row, column) {
     return dt.getFullYear() + '-' + (dt.getMonth() + 1) + '-' + dt.getDate() + ' ' + dt.getHours() + ':' + dt.getMinutes() + ':' + dt.getSeconds()
 }
 
-const format = {toTreeData,formatDate }
+const format = {toTreeData, formatDate }
 
 export default format

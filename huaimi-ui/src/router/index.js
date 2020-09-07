@@ -4,32 +4,32 @@ import VueRouter from 'vue-router'
 import storage from "@/utils/storage";
 
 Vue.use(VueRouter)
-
+//resolve => require(['@/views/permission'], resolve),
 const childRoutes = [
   {
     path: '/control',
     component: () => import('@/views/control'),
     meta: {
       nav: [
-        { name: '控制台', url: '/control' },
+        { name: '控制台'},
       ],
       title: '控制台'
     }
   },
   {
     path: '/system/permission',
-    component: () => import('@/views/permission'),//resolve => require(['@/views/permission'], resolve),
+    component: () => import('@/views/system/permission'),
     meta: {
       nav: [
         { name: '系统管理'},
-        { name: '权限管理', url: '/system/permission' },
+        { name: '权限管理'},
       ],
       title: '权限管理'
     }
   },
   {
     path: '/system/role',
-    component: () => import('@/views/role'),
+    component: () => import('@/views/system/role'),
     meta: {
       nav: [
         { name: '系统管理'},
@@ -40,11 +40,11 @@ const childRoutes = [
   },
   {
     path: '/system/user',
-    component: () => import('@/views/user'),
+    component: () => import('@/views/system/user'),
     meta: {
       nav: [
         { name: '系统管理'},
-        { name: '用户管理', url: '/system/user' },
+        { name: '用户管理'},
       ],
       title: '用户管理'
     }
@@ -55,7 +55,7 @@ const childRoutes = [
     meta: {
       nav: [
         { name: '用户中心'},
-        { name: '个人资料', url: '/profile' },
+        { name: '个人资料'},
       ],
       title: '个人资料'
     }
@@ -66,7 +66,7 @@ const childRoutes = [
     meta: {
       nav: [
         { name: '用户中心'},
-        { name: '修改密码', url: '/passwd'},
+        { name: '修改密码'},
       ],
       title: '修改密码'
     }
@@ -76,8 +76,9 @@ const childRoutes = [
   const routes = [
   {
     path: '/',
-    name: 'Home',
-    component: () => import('@/views/Home')
+    name: 'home',
+    component: () => import('@/views/home'),
+    redirect: '/control',
   },
     {
       path: '/login',

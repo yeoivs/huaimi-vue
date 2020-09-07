@@ -4,37 +4,37 @@ import axios from 'axios'
 
 Vue.use(VueAxios, axios)*/
 
+import router from "@/router";
+
 import {MessageBox} from 'element-ui'
 
 import storage from "@/utils/storage";
 
-const service = axios.create()
+const service = axios.create({
+    baseURL: '/api'
+})
 
-service.defaults.baseURL = '/api'
-service.defaults.headers.post['Content-Type'] = 'application/json'
-
+service.defaults.headers['Content-Type'] = 'application/json'
 
 service.interceptors.request.use(config => {
     const token = storage.getToken()
     if(token){
         config.headers['Authorization'] = token
     }
+    console.log('request => ', config)
     return config;
 }, error => {
     return Promise.reject(error)
 })
 
 service.interceptors.response.use(response => {
-    console.log(response)
+    console.log('response => ', response)
     const status = response.data['code'] || response.status
     if(status === 200 || status === 0){
-        return response.data
+        return Promise.resolve(response.data)
     }else{
         if(status === 401){
-            MessageBox.confirm('登录信息失效，请重新登录。', "系统提示").then(r => {
-                storage.clear()
-                location.reload()
-            })
+            loginMessage()
         } else {
             return Promise.reject(response)
         }
@@ -42,5 +42,12 @@ service.interceptors.response.use(response => {
 }, error => {
     return Promise.reject(error.response ? error.response : error)
 })
+
+function loginMessage(){
+    MessageBox.confirm('登录信息失效，请重新登录。', "系统提示").then(r => {
+        storage.clear()
+        location.reload()
+    })
+}
 
 export default service

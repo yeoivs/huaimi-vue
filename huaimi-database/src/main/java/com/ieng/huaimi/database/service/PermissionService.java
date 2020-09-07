@@ -15,7 +15,7 @@ public interface PermissionService {
 
     List<Permission> findPermissionList();
 
-    List<Permission> findPermissionTree();
+    List<Permission> findPermissionCondition(Permission permission);
 
     List<Permission> findMenu(Set<String> roles);
 
@@ -24,4 +24,5 @@ public interface PermissionService {
     int editPermission(Permission permission);
 
     int delPermission(Long id);
+
 }
