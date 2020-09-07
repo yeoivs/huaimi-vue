@@ -1,0 +1,61 @@
+{
+  "icons": [
+    "el-icon-setting", "el-icon-user", "el-icon-help", "el-icon-video-camera", "el-icon-camera",
+    "el-icon-s-operation", "el-icon-s-promotion", "el-icon-s-open", "el-icon-s-claim", "el-icon-s-finance",
+    "el-icon-s-data", "el-icon-s-opportunity", "el-icon-share", "el-icon-document", "el-icon-paperclip",
+    "el-icon-monitor", "el-icon-attract", "el-icon-headset", "el-icon-reading", "el-icon-data-line",
+    "el-icon-pie-chart", "el-icon-collection-tag", "el-icon-film", "el-icon-collection", "el-icon-toilet-paper",
+    "el-icon-coin", "el-icon-guide", "el-icon-cpu", "el-icon-position", "el-icon-bangzhu", "el-icon-discover"
+  ],
+  "missType": [
+    {
+      "key": "0",
+      "value": "目录",
+      "type": "success"
+    },
+    {
+      "key": "1",
+      "value": "菜单",
+      "type": "primary"
+    },
+    {
+      "key": "2",
+      "value": "按钮",
+      "type": "warning"
+    }
+  ],
+  "status": [
+    {
+      "key": "0",
+      "value": "禁用",
+      "type": "danger"
+    },
+    {
+      "key": "1",
+      "value": "正常",
+      "type": "primary"
+    }
+  ],
+  "method": [
+    {
+      "key": "GET",
+      "value": "GET",
+      "type": "primary"
+    },
+    {
+      "key": "POST",
+      "value": "POST",
+      "type": "success"
+    },
+    {
+      "key": "PUT",
+      "value": "PUT",
+      "type": "info"
+    },
+    {
+      "key": "DELETE",
+      "value": "DELETE",
+      "type": "danger"
+    }
+  ]
+}
